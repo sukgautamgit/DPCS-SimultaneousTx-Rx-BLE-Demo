@@ -116,7 +116,7 @@ Node-2 extracts only the application data and reconstructs the Manufacturer Spec
 
 Where:
 
-- `XX 01 02 03` → Application data
+- `XX 01 02 03` → Application data (generated at Node-1)
 - The first byte (`XX`) is incremented at every transmission from Node-1
 
 
@@ -208,7 +208,7 @@ This demo shows:
 - Autonomous scanning enable/disable based on sync state
 - Simultaneous periodic RX/TX at a relay node
 
-The middle node performs simple forwarding without concatenation.
+The middle node performs simple forwarding of the first node's data.
 
 ---
 
