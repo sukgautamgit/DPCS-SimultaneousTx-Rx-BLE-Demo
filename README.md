@@ -15,15 +15,7 @@ This repository provides a minimal three-node Zephyr implementation demonstratin
 
 ---
 
-The **second node (relay)** demonstrates the basic principle of **Dynamic Primary Channel Scanning (DPCS)**:
 
-- Primary channel scanning is disabled immediately after periodic synchronization is established.
-- Primary channel scanning is automatically re-enabled when synchronization is terminated.
-- The relay performs simultaneous periodic reception and periodic transmission.
-
-Transmission at the relay node is not activated until synchronization with Node-1 is established.
-
----
 
 ## 📂 Repository Structure
 DPCS_Node1_Tx/
@@ -64,6 +56,16 @@ Random Static advertising addresses:
 - **Node-3:** `D2:F4:F4:F4:53:28`
 
 Node-2 and Node-3 use Filter Accept List (whitelisting).
+
+---
+
+The **second node (relay)** demonstrates the basic principle of **Dynamic Primary Channel Scanning (DPCS)**:
+
+- Primary channel scanning is disabled immediately after periodic synchronization is established.
+- Primary channel scanning is automatically re-enabled when synchronization is terminated.
+- The relay performs simultaneous periodic reception and periodic transmission.
+
+Transmission at the relay node is not activated until synchronization with Node-1 is established.
 
 ---
 
