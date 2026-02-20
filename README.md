@@ -1,19 +1,18 @@
 # DPCS-SimultaneousTx-Rx-BLE-Demo
+
 A minimal three-node Zephyr reference implementation of Dynamic Primary Channel Scanning (DPCS) for ultra-low-power relaying, showcasing simultaneous RX/TX operation at the intermediate relay node.
 
-# BLE DPCS Simultaneous TX/RX Demo
+## Overview
 
-A minimal three-node Zephyr implementation demonstrating:
+This repository provides a minimal three-node Zephyr implementation demonstrating:
 
-- Dynamic Primary Channel Scanning (DPCS) leveraging the BLE stack's callback structure
-- Periodic Advertising Synchronization Establishment and Termination
+- Dynamic Primary Channel Scanning (DPCS) leveraging the BLE stack’s callback structure
+- Periodic Advertising synchronization establishment and termination
 - Simultaneous reception and transmission at a relay node
 
 *Data handling is intentionally kept minimal in this demonstration so that the implementation effectively highlights the DPCS operation and the relay’s simultaneous reception and transmission, while keeping the code easy to understand/interpret. Depending on application requirements, richer data pipelines such as compression, payload concatenation/aggregation can be integrated on top of the presented baseline.*
 
 ---
-
-## 🧠 What This Demo Shows
 
 The **second node (relay)** demonstrates the basic principle of **Dynamic Primary Channel Scanning (DPCS)**:
 
