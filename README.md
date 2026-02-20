@@ -62,6 +62,21 @@ Node-2 and Node-3 use Filter Accept List (whitelisting).
 
 ---
 
+## ⚠️ Important: Relay Role Configuration
+
+For the relay node (`DPCS_Node2_Relay`), simultaneous reception and transmission requires enabling both BLE roles:
+
+- `CONFIG_BT_OBSERVER=y`
+- `CONFIG_BT_BROADCASTER=y`
+
+This allows the relay to:
+
+- Synchronize to periodic advertising from Node-1 (Observer role)
+- Transmit its own periodic advertising (Broadcaster role)
+
+These options are already enabled in the provided `prj.conf` file.  
+However, this configuration is essential for realizing simultaneous RX/TX operation and the DPCS principle.
+
 ## ⚙️ Configuration Parameters
 
 ### Advertising (Node-1 and Node-2)
@@ -95,6 +110,7 @@ Node-2 extracts only the application data and reconstructs the Manufacturer Spec
 
  
 **Example log output** (data transmitted by Node-1 and received at Node-2 and Node-3):
+
 7 ff 59 0 XX 1 2 3
 
 
