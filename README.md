@@ -7,7 +7,7 @@ A minimal three-node Zephyr reference implementation of Dynamic Primary Channel 
 
 This repository provides a minimal three-node Zephyr implementation demonstrating:
 
-- Dynamic Primary Channel Scanning (DPCS) leveraging the BLE stack’s callback structure
+- Dynamic Primary Channel Scanning (DPCS) leveraging the BLE stack’s ***callback structure***
 - Periodic Advertising synchronization establishment and termination
 - Simultaneous reception and transmission at a relay node
 
