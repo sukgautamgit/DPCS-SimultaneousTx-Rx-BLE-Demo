@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "BLE-DPCS Simultaneous TX/RX: Minimal Three-Node Implementation"
+message: "If you use this software, please cite it."
+type: software
+version: "1.0.0"
+date-released: 2026-02-20
+
+authors:
+  - family-names: Gautam
+    given-names: Sukriti
+
+repository-code: "https://github.com/sukgautamgit/DPCS-SimultaneousTx-Rx-BLE-Demo"
+license: Apache-2.0
