@@ -9,7 +9,7 @@ A minimal three-node Zephyr implementation demonstrating:
 - Periodic Advertising Synchronization Establishment and Termination
 - Simultaneous reception and transmission at a relay node
 
-*Data handling is intentionally kept minimal in this demonstration so that the implementation highlights the DPCS operation and the relay’s simultaneous reception and transmission. Depending on application requirements, richer data pipelines such as compression, payload concatenation/aggregation, and custom framing can be integrated on top of the presented baseline.*
+Data handling is intentionally kept minimal in this demonstration so that the implementation highlights the DPCS operation and the relay’s simultaneous reception and transmission. Depending on application requirements, richer data pipelines such as compression, payload concatenation/aggregation, and custom framing can be integrated on top of the presented baseline.
 ---
 
 ## 🧠 What This Demo Shows
