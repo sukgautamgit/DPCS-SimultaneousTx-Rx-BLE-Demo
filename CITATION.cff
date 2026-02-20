@@ -1,1 +1,27 @@
-CITATION.cff
+cff-version: 1.2.0
+title: "BLE-DPCS Simultaneous TX/RX: Minimal Three-Node Implementation"
+message: "If you use this code in your research, please cite it."
+type: software
+version: "1.0.0"
+date-released: 2026-02-20
+
+authors:
+  - family-names: Gautam
+    given-names: Sukriti
+
+repository-code: "https://github.com/YOUR-USERNAME/YOUR-REPO-NAME"
+license: Apache-2.0
+
+abstract: >
+  A minimal three-node Zephyr implementation demonstrating Dynamic
+  Primary Channel Scanning (DPCS) for ultra-low-power relaying,
+  including simultaneous reception and transmission at the relay node.
+
+keywords:
+  - Bluetooth Low Energy
+  - BLE
+  - Periodic Advertising
+  - Dynamic Primary Channel Scanning
+  - DPCS
+  - Ultra-low-power relaying
+  - Simultaneous TX/RX
