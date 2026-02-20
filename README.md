@@ -5,18 +5,16 @@ A minimal three-node Zephyr reference implementation of Dynamic Primary Channel 
 
 A minimal three-node Zephyr implementation demonstrating:
 
-- Dynamic Primary Channel Scanning (DPCS)
-- Periodic Advertising Synchronization
+- Dynamic Primary Channel Scanning (DPCS) leveraging the BLE stack's callback structure
+- Periodic Advertising Synchronization Establishment and Termination
 - Simultaneous reception and transmission at a relay node
-- Manufacturer Specific AD structure handling
 
-This demo is intentionally simple and designed to clearly illustrate the core principle of DPCS.
-
+*Data handling is intentionally kept minimal in this demonstration so that the implementation highlights the DPCS operation and the relay’s simultaneous reception and transmission. Depending on application requirements, richer data pipelines such as compression, payload concatenation/aggregation, and custom framing can be integrated on top of the presented baseline.*
 ---
 
 ## 🧠 What This Demo Shows
 
-The second node (relay) demonstrates the basic principle of **Dynamic Primary Channel Scanning (DPCS)**:
+The **second node (relay)** demonstrates the basic principle of **Dynamic Primary Channel Scanning (DPCS)**:
 
 - Primary channel scanning is disabled immediately after periodic synchronization is established.
 - Primary channel scanning is automatically re-enabled when synchronization is terminated.
@@ -32,7 +30,7 @@ DPCS_Node2_Relay/
 DPCS_Node3_Rx/
 
 
-Each folder is a standalone Zephyr application.
+*Each folder is a standalone Zephyr application.*
 
 ---
 
@@ -46,6 +44,8 @@ Tested and guaranteed for:
 
 (Nordic DKs or custom boards using these SoCs)
 
+For nRF5340, ensure that the network core firmware is also flashed.
+
 ---
 
 ## 📡 Static Addresses Used
@@ -56,7 +56,7 @@ Random Static advertising addresses:
 - **Node-2:** `D2:F0:F4:22:53:28`
 - **Node-3:** `D2:F4:F4:F4:53:28`
 
-Nodes use Filter Accept List (whitelisting).
+Node-2 and Node-3 use Filter Accept List (whitelisting).
 
 ---
 
@@ -73,7 +73,7 @@ Nodes use Filter Accept List (whitelisting).
 - Scan Window: **100 ms**
 - Sync Timeout: **5 seconds**
 
-The sync timeout is deliberately kept small to clearly demonstrate DPCS behavior.
+*The sync timeout is deliberately kept small to clearly demonstrate DPCS behavior.*
 
 ---
 
@@ -85,20 +85,22 @@ Structure:
 
 - Length (1 byte, added by controller)
 - AD Type (1 byte = `0xFF`)
-- Company Identifier (2 bytes = `0x0059`)
+- Company Identifier (2 bytes = `0x0059` for Nordic Semiconductor)
 - Application Data (4 bytes)
 
-Example log output:
+*Node-1 transmits 4 bytes of application data.  
+Node-2 extracts only the application data and reconstructs the Manufacturer Specific AD structure before forwarding.*
+
+ 
+**Example log output** (data transmitted by Node-1 and received at Node-2 and Node-3):
 7 ff 59 0 XX 1 2 3
 
 
 Where:
 
-- `AA 01 02 03` → Application data
-- The first byte (`AA`) is incremented at every transmission from Node-1
+- `XX 01 02 03` → Application data
+- The first byte (`XX`) is incremented at every transmission from Node-1
 
-Node-1 transmits 4 bytes of application data.  
-Node-2 extracts only the application data and reconstructs the Manufacturer Specific AD structure before forwarding.
 
 ---
 
@@ -125,14 +127,16 @@ Node-1 triggers Node-2 advertising.
 
 ### Step 3: Observe Initial Synchronization
 
-At Node-2 and Node-3:
+Observe the serial logs at **Node-2** and **Node-3** (e.g., using PuTTY or nRF Connect Serial Terminal):
 
 - A sync established log appears.
-- Primary channel scanning is disabled (`bt_le_scan_stop()`).
+- Primary channel scanning is disabled (via `bt_le_scan_stop()`).
 - Periodic reception continues in known slots.
-- Node-2 starts transmitting its own periodic advertising.
+- Node-2 starts transmitting its own periodic advertising process.
+- Observe the logs simultaneously. Node-3 receives exactly the same values received at Node-2, every 1 second.
 
-Node-3 receives exactly the same values seen at Node-2, every 1 second.
+This smooth relay operation from Node-1 to Node-3 demonstrates uniterrupted simultaneous reception and transmission occuring at Node-2.
+
 
 ---
 
@@ -142,15 +146,13 @@ Turn OFF Node-1.
 
 After 5 seconds:
 
-- Node-2 logs a sync terminated message.
-- Primary channel scanning is automatically re-enabled (`bt_le_scan_start()`).
+- Node-2 logs a *sync terminated* message.
+- Primary channel scanning is automatically re-enabled (via `bt_le_scan_start()`).
 
 At this stage:
 
 - Node-3 continues receiving packets from Node-2.
-- The data does not change (because Node-2 is not receiving new data).
-
-This clearly demonstrates DPCS behavior.
+- The data observed at Node-3 does not change (because Node-2 is not receiving new data).
 
 ---
 
@@ -160,9 +162,9 @@ Turn Node-1 ON again.
 
 You will observe:
 
-- Node-2 re-enables scanning
+- Node-2 re-enables primary channel scanning
 - Sync gets re-established
-- Fresh data propagation resumes
+- Fresh data propagation resumes and now Node-3 no longer receives stale packets
 - Sync loss counter increments
 
 This process can be repeated multiple times.
@@ -173,7 +175,8 @@ This process can be repeated multiple times.
 
 Node-2 maintains a counter tracking how many times synchronization has been lost.
 
-Each time Node-1 is turned off and on again, this counter increments.
+Each time Node-1 is turned off and on again, this counter increments.  
+The updated value is printed in the serial logs (upon every packet reception).
 
 A similar sync-loss scenario can also be demonstrated between Node-2 and Node-3.
 
@@ -186,7 +189,6 @@ This demo shows:
 - Practical realization of Dynamic Primary Channel Scanning
 - Autonomous scanning enable/disable based on sync state
 - Simultaneous periodic RX/TX at a relay node
-- Deterministic relaying with minimal implementation
 
 The middle node performs simple forwarding without concatenation.
 
