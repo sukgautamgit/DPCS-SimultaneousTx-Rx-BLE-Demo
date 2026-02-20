@@ -2,6 +2,10 @@
 
 A minimal three-node Zephyr reference implementation of Dynamic Primary Channel Scanning (DPCS) for ultra-low-power relaying, showcasing simultaneous RX/TX operation at the intermediate relay node.
 
+## 💻 Software Requirements
+
+This project must be built within the Nordic nRF Connect SDK (NCS) environment.
+
 ## Overview
 
 This repository provides a minimal three-node Zephyr implementation demonstrating:
