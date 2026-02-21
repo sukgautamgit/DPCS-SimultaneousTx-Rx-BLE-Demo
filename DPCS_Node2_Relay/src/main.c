@@ -11,7 +11,7 @@
 #include <zephyr/bluetooth/hci.h>
 
 
-#define ADV_PAYLOAD_LEN 8
+#define ADV_PAYLOAD_LEN 8    /* [Length (1) + AD Type (1) + CompanyID(2) + Application Data(4)] */
 int count_termination=0;  
 
 
